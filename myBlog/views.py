@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
+from django.db.models import Q
 from django.http import HttpResponse
 from .models import Article, Category, Banner, Tag, Link
 
@@ -68,7 +69,7 @@ def tag(request, tag):
     allcategory = Category.objects.all()
     tname = Tag.objects.get(name=tag)  # 获取当前搜索的标签名
     page = request.GET.get('page')
-    alltag = Tag.objects.all()
+    allTag = Tag.objects.all()
     paginator = Paginator(list, 5)
     try:
         list = paginator.page(page)  # 获取当前页码的记录
@@ -81,9 +82,23 @@ def tag(request, tag):
 
 # 搜索页
 def search(request):
-    pass
+    ss = request.GET.get('search')  # 获取搜索的关键词
+    list = Article.objects.filter(Q(title__icontains=ss) |Q(excerpt__icontains=ss))  # 获取到搜索关键词通过标题进行匹配
+    rementui = Article.objects.filter(tui__id=2)[:6]
+    allcategory = Category.objects.all()
+    page = request.GET.get('page')
+    allTag = Tag.objects.all()
+    paginator = Paginator(list, 10)
+    try:
+        list = paginator.page(page)  # 获取当前页码的记录
+    except PageNotAnInteger:
+        list = paginator.page(1)  # 如果用户输入的页码不是整数时,显示第1页的内容
+    except EmptyPage:
+        list = paginator.page(paginator.num_pages)  # 如果用户输入的页数不在系统的页码列表中时,显示最后一页的内容
+    return render(request, 'search.html', locals())
 
 
 # 关于我们
 def about(request):
-    pass
+    allcategory = Category.objects.all()
+    return render(request, 'page.html', locals())

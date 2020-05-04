@@ -1,13 +1,14 @@
 ﻿{% extends "base.html" %}
+{% load static %}
 {% block content %}
     <div id="main-container" class="container clearfix">
         <section class="post-left">
-            <div class="breadcrumb">您的位置： <a itemprop="breadcrumb" href="/">首页</a> » <span class="current">关于我们</span>
+            <div class="breadcrumb">您的位置： <a itemprop="breadcrumb" href="/">首页</a> » <span class="current">关于我</span>
             </div>
             <div class="post-main clearfix">
-                <h1 class="post-title">关于我们</h1>
+                <h1 class="post-title">关于我</h1>
                 <div class="post-con clearfix">
-                    <div class="article-meta"><span class="item">2018-10-09</span></div>
+                    <div class="article-meta"><span class="item">2020-05-04</span></div>
                     <article class="article-content">
                         <p>
                             1、本网站属于个人的非赢利性网站，转载的文章遵循原作者的版权声明，如果原文没有版权声明，按照目前互联网开放的原则，我们将在不通知作者的情况下，转载文章;如果原文明确注明“禁止转载”，我们一定不会转载。如果我们转载的文章不符合作者的版权声明或者作者不想让我们转载您的文章的话，请来信告知.</p>
@@ -30,15 +31,15 @@
         <aside class="post-right hidden-xs">
             <!-- /关注我们 -->
             <div class="post-right-item">
-                <h4 class="post-right-title">关注我们</h4>
-                <div class="wid-about">
-                    <p>拓普Python学院，欢迎关注！</p>
-                    <img src="static/picture/weixinqr.jpg" width="160" height="160">
+                <h4 class="post-right-title">关注我</h4>
+                 <div class="wid-about">
+                    <p>萌新的学习旅程</p>
+                    <img src= '{% static "picture/weixinqr.jpg"%}' alt="微信二维码-Simon" width="160" height="160">
                 </div>
                 <div class="wid-about">
                     <p><strong>联系方式:</strong></p>
-                    <p>QQ:445813</p>
-                    <p>Email：445813@qq.com</p>
+                    <p>QQ:335789877</p>
+                    <p>Email：335789877@qq.com</p>
                 </div>
             </div>
 
