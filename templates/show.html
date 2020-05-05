@@ -44,25 +44,67 @@
 
             </div>
             <!-- /文章 -->
+            <div class="comment  hidden-xs">
+                <hr>
+                {% if user.is_authenticated %}
+                    <div>
+                        <form
+                            action="{% url 'comment:post_comment' sid %}"
+                            method="POST"
+                        >
+                        {% csrf_token %}
+                            <div class="form-group">
+                                <label for="body">
+                                    <strong>
+                                        我也要发言：
+                                    </strong>
+                                </label>
+                                <textarea
+                                    type="text"
+                                    class="form-control"
+                                    id="body"
+                                    name="body"
+                                    rows="2"></textarea>
+                            </div>
+                            <!-- 提交按钮 -->
+                            <button type="submit" class="btn btn-primary ">发送</button>
+                        </form>
+                    </div>
+                    <br>
+                {% else %}
+                    <br>
+                    <h5 class="row justify-content-center">
+                        请<a href="/accounts/github/login/">登录</a>后回复
+                    </h5>
+                    <br>
+                {% endif %}
 
 
-            <div class="recommend  hidden-xs">
+                <!-- 显示评论 -->
+                <h4>共有{{ comments.count }}条评论</h4>
+                <div>
+                    {% for comment in comments %}
+                        <hr>
+                        <p>
+                            <strong style="color: pink">
+                                {{ comment.CommentUser }}
+                            </strong> 于
+                            <span style="color: green">
+                                {{ comment.created|date:"Y-m-d H:i:s" }}
+                            </span> 时说：
+                            {% if user.is_authenticated %}
+                                {% if comment.CommentUser.id == user.id  %}
+                                    <a style="float: right;color: crimson" href="{% url 'deletecomment:delete_comment' comment.id sid %}" >删除</a>
+                                {% endif %} 
 
-                <div class="head clearfix"><span class="sp">您可能感兴趣的:</span></div>
-                <ul>
-                    {% for h in hot %}
-                    <li>
-                     <div class="pic">
-                       <a href="{% url 'index' %}show-{{ h.id }}.html" title="{{ h.title }}">
-                       <img src="{% url 'index' %}media/{{ h.img }}"
-                         srcset="{% url 'index' %}media/{{ h.img }}"
-                         alt="{{ h.title }}" class="wp-post-image" width="145" height="100"/></a>
-                      </div>
-                        <a class="descript " href="{% url 'index' %}show-{{ h.id }}.html" rel="bookmark"
-                               title="{{ h.title }}">{{ h.title }}</a>
-                    </li>
+                            {% endif %}
+                        </p>
+                        <pre style="font-family: inherit; font-size: 1em;">
+                        {{ comment.body }}</pre>
                     {% endfor %}
-                </ul>
+                </div>
+
+
             </div>
 
 

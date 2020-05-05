@@ -2,6 +2,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 from django.db.models import Q
 from django.http import HttpResponse
+
+from comment.models import Comment
 from .models import Article, Category, Banner, Tag, Link
 
 
@@ -50,6 +52,7 @@ def list(request, lid):
 
 # 内容页
 def show(request, sid):
+    comments = Comment.objects.filter(article=sid)
     show = Article.objects.get(id=sid)  # 查询指定ID的文章
     allcategory = Category.objects.all()  # 导航上的分类
     allTag = Tag.objects.all()  # 右侧所有标签

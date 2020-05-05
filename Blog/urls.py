@@ -19,6 +19,7 @@ from django.views.static import serve
 from Blog import settings
 from myBlog import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),  # 网站首页
@@ -29,5 +30,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),  # 联系我们单页
     path('ueditor/', include('DjangoUeditor.urls')),
     path('accounts/', include('allauth.urls')),
+    path('comment/', include('comment.urls', namespace='comment')),
+    path('deletecomment/', include('comment.deleteUrls', namespace='deletecomment')),
     re_path('^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
