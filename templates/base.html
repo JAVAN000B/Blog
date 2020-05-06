@@ -15,11 +15,13 @@
     <link rel='stylesheet' id='stylesheet-css' href='{% static "css/style.css" %}' type='text/css' media='all'/>
     <link rel='stylesheet' id='raxus-css' href='{% static "css/raxus.css" %}' type='text/css' media='all'/>
     <link rel='stylesheet' id='open-social-style-css' href='{% static "css/os.css" %}' type='text/css' media='all'/>
+    <link rel="stylesheet" href="{% static "live2d/css/live2d.css" %}"/>
+
     <meta name='robots' content='index,follow'/>
-    <meta name="keywords" content="互联网,产品经理,产品设计,用户体验,交互设计,网站运营,移动互联网">
-    <meta name="description" content="聚焦互联网前沿资讯，网络精华内容，交流产品心得。 每天为你速递最新、最鲜、最有料的互联网科技资讯！">
+    <meta name="keywords" content="自用，闲来无事做的">
+    <meta name="description" content="一个小白的网站，希望一起提高，共勉">
 </head>
-<body class="home blog site-layout-2">
+<body class="home blog site-layout-2" style="display: flex;flex-direction: column; background-color: #8c601414">
 <!-- 头部 -->
 <header class="fix-wrap" id="fix-wrap">
     <div class="fix-main clearfix pr" id="fix-main" _hover-ignore="1"><a href="/" class="index-logo">
@@ -38,20 +40,26 @@
         </nav>
         <form method="get" class="index-search  hidden-xs" action="{% url 'index' %}s/">
             <input class="text" name="search" type="text" placeholder="输入关键字" value="">
-            <button class="submit" type="submit"><i class="fa fa-search"></i></button>
+            <button class="btn" style="color: darkslategrey" type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
 </header>
 
-{% block content %}
+<div class="content" style="flex:1 0 auto ">
+    {% block content %}
 
-{% endblock %}
+    {% endblock %}
+</div>
 
 <!-- 底部 -->
-<footer class="footer">
+<div id="landlord">
+    <div class="message" style="opacity:0"></div>
+    <canvas id="live2d" width="280" height="350" class="live2d"></canvas>
+</div>
+<footer class="footer" style="flex-shrink: 0">
     <div class="copyright"> © 2020- 2020 · All Rights Reserved
         · <a href="{% url 'index' %}">Simon's Blog</a>
-        · <a href="http://www.miibeian.gov.cn" target="_blank">XICP备XXXXXXXX号</a> 版权所有 © Simon
+        · <a href="http://www.nibiedian.gov.cn" target="_blank">XICP备XXXXXXXX号</a> 版权所有 © Simon
     </div>
 </footer>
 <script src="{% static "js/bundle.js" %}"></script>
@@ -63,6 +71,16 @@
 <script type='text/javascript' src='{% static "js/loader.js" %}'></script>
 <script type='text/javascript' src='{% static "js/bj-lazy-load.min.js" %}'></script>
 <script type='text/javascript' src='{% static "js/os.js" %}'></script>
-
+<script type="text/javascript" src='{% static "js/trackLine.js" %}'></script>
+<script type="text/javascript" src="{% static "js/mouseClick.js"%}"></script>
+<script type="text/javascript">
+    var message_Path = "{% static "live2d"%}"
+    var home_Path = '127.0.0.1/'
+</script>
+<script type="text/javascript" src="{% static "live2d/js/live2d.js"%}"></script>
+<script type="text/javascript" src="{% static "live2d/js/message.js"%}"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "{% static "live2d/model/haruto/haruto.model.json"%}");
+</script>
 </body>
 </html>

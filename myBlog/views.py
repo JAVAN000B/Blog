@@ -39,6 +39,7 @@ def list(request, lid):
     rementui = Article.objects.filter(tui__id=2)[:6]  # 右侧的热门推荐
     allcategory = Category.objects.all()  # 导航所有分类
     allTag = Tag.objects.all()  # 右侧所有文章标签
+    hot = Article.objects.order_by('views')[:10]
     page = request.GET.get('page')  # 在URL中获取当前页面数
     paginator = Paginator(list, 5)  # 对查询到的数据对象list进行分页，设置超过5条数据就分页
     try:
@@ -55,6 +56,7 @@ def show(request, sid):
     comments = Comment.objects.filter(article=sid)
     show = Article.objects.get(id=sid)  # 查询指定ID的文章
     allcategory = Category.objects.all()  # 导航上的分类
+    hot = Article.objects.order_by('views')[:10]
     allTag = Tag.objects.all()  # 右侧所有标签
     rementui = Article.objects.filter(tui__id=2)[:6]  # 右侧热门推荐
     hot = Article.objects.all().order_by('?')[:10]  # 内容下面的您可能感兴趣的文章，随机推荐
@@ -71,6 +73,7 @@ def tag(request, tag):
     rementui = Article.objects.filter(tui__id=2)[:6]
     allcategory = Category.objects.all()
     tname = Tag.objects.get(name=tag)  # 获取当前搜索的标签名
+    hot = Article.objects.order_by('views')[:10]
     page = request.GET.get('page')
     allTag = Tag.objects.all()
     paginator = Paginator(list, 5)
@@ -88,6 +91,7 @@ def search(request):
     ss = request.GET.get('search')  # 获取搜索的关键词
     list = Article.objects.filter(Q(title__icontains=ss) |Q(excerpt__icontains=ss))  # 获取到搜索关键词通过标题进行匹配
     rementui = Article.objects.filter(tui__id=2)[:6]
+    hot = Article.objects.order_by('views')[:10]
     allcategory = Category.objects.all()
     page = request.GET.get('page')
     allTag = Tag.objects.all()
