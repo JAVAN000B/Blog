@@ -16,12 +16,17 @@
     <link rel='stylesheet' id='raxus-css' href='{% static "css/raxus.css" %}' type='text/css' media='all'/>
     <link rel='stylesheet' id='open-social-style-css' href='{% static "css/os.css" %}' type='text/css' media='all'/>
     <link rel="stylesheet" href="{% static "live2d/css/live2d.css" %}"/>
-
+    <link rel="stylesheet" href="{% static "css/back-top.css" %}"/>
     <meta name='robots' content='index,follow'/>
     <meta name="keywords" content="自用，闲来无事做的">
     <meta name="description" content="一个小白的网站，希望一起提高，共勉">
+
+
 </head>
-<body class="home blog site-layout-2" style="display: flex;flex-direction: column; background-color: #8c601414">
+<body class="home blog site-layout-2" style="display: flex; flex-direction: column; background-color: #8c601414">
+
+
+
 <!-- 头部 -->
 <header class="fix-wrap" id="fix-wrap">
     <div class="fix-main clearfix pr" id="fix-main" _hover-ignore="1"><a href="/" class="index-logo">
@@ -38,11 +43,13 @@
                 <li id="menu-item-24086" class="menu-item"><a href="/about/">关于博主</a></li>
             </ul>
         </nav>
-        <form method="get" class="index-search  hidden-xs" action="{% url 'index' %}s/">
-            <input class="text" name="search" type="text" placeholder="输入关键字" value="">
+        <form method="get" class="index-search  hidden-xs"  action="{% url 'index' %}s/">
+            <label for="searchSth"></label><input class="searchBar" name="search" id ="searchSth" type="text" placeholder="输入关键字" value="">
             <button class="btn" style="color: darkslategrey" type="submit"><i class="fa fa-search"></i></button>
         </form>
+
     </div>
+
 </header>
 
 <div class="content" style="flex:1 0 auto ">
@@ -50,6 +57,9 @@
 
     {% endblock %}
 </div>
+
+<p id="back-top" style="display:none"><a href="#top"><span></span></a></p>
+
 
 <!-- 底部 -->
 <div id="landlord">
@@ -74,7 +84,7 @@
 <script type="text/javascript" src='{% static "js/trackLine.js" %}'></script>
 <script type="text/javascript" src="{% static "js/mouseClick.js"%}"></script>
 <script type="text/javascript">
-    var message_Path = "{% static "live2d"%}"
+    var message_Path = "{% static "live2d/"%}"
     var home_Path = '127.0.0.1/'
 </script>
 <script type="text/javascript" src="{% static "live2d/js/live2d.js"%}"></script>
@@ -82,5 +92,7 @@
 <script type="text/javascript">
     loadlive2d("live2d", "{% static "live2d/model/haruto/haruto.model.json"%}");
 </script>
+<script type="text/javascript" src="{% static "js/progressIndicator.js"%}"></script>
+<script type="text/javascript" src="{% static "js/back-top.js"%}"></script>
 </body>
 </html>
