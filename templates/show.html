@@ -43,9 +43,7 @@
                     </div>
                 </div>
 
-            </div>
-            <!-- /文章 -->
-            <div class="comment  hidden-xs">
+                            <div class="comment  hidden-xs">
                 <hr>
                 {% if user.is_authenticated %}
                     <div>
@@ -96,7 +94,7 @@
                             {% if user.is_authenticated %}
                                 {% if comment.CommentUser.id == user.id  %}
                                     <a style="float: right;color: crimson" href="{% url 'deletecomment:delete_comment' comment.id sid %}" >删除</a>
-                                {% endif %} 
+                                {% endif %}
 
                             {% endif %}
                         </p>
@@ -109,6 +107,8 @@
             </div>
 
 
+            </div>
+            <!-- /文章 -->
         </section>
         <!-- /post-left -->
         <!-- /post-right -->

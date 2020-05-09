@@ -32,5 +32,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('comment/', include('comment.urls', namespace='comment')),
     path('deletecomment/', include('comment.deleteUrls', namespace='deletecomment')),
+    path('404/',views.page_not_found, name='404'),
     re_path('^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]

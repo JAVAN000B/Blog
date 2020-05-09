@@ -89,7 +89,7 @@ def tag(request, tag):
 # 搜索页
 def search(request):
     ss = request.GET.get('search')  # 获取搜索的关键词
-    list = Article.objects.filter(Q(title__icontains=ss) |Q(excerpt__icontains=ss))  # 获取到搜索关键词通过标题进行匹配
+    list = Article.objects.filter(Q(title__icontains=ss) | Q(excerpt__icontains=ss))  # 获取到搜索关键词通过标题进行匹配
     rementui = Article.objects.filter(tui__id=2)[:6]
     hot = Article.objects.order_by('views')[:10]
     allcategory = Category.objects.all()
@@ -109,3 +109,7 @@ def search(request):
 def about(request):
     allcategory = Category.objects.all()
     return render(request, 'page.html', locals())
+
+
+def page_not_found(request, exception=404):
+    return render(request, '404.html')
