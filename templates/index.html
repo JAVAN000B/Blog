@@ -51,9 +51,16 @@
                             <div class="col-md-4">
                                 <div class="thumbnail">
                                     <a href="{% url 'index' %}show-{{ a.id }}.html" title="{{ a.title }}">
-                                        <img src="media/{{ a.img }}"
+                                        {% if a.img == "" %}
+                                            <img src="{% static "picture/default.png" %}"
+                                             srcset="{% static "picture/default.png" %}"
+                                             alt="{{ a.title }}" class="wp-post-image" width="240" height="160"/>
+                                        {% else %}
+                                            <img src="media/{{ a.img }}"
                                              srcset="media/{{ a.img }}"
-                                             alt="{{ a.title }}" class="wp-post-image" width="240" height="160"/></a>
+                                             alt="{{ a.title }}" class="wp-post-image" width="240" height="160"/>
+                                        {% endif %}
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-md-8">
