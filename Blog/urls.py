@@ -13,11 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.static import serve
 from Blog import settings
 from myBlog import views
+from django.views import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +30,11 @@ urlpatterns = [
     path('s/', views.search, name='search'),  # 搜索列表页
     path('about/', views.about, name='about'),  # 联系我们单页
     path('ueditor/', include('DjangoUeditor.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('comment/', include('comment.urls', namespace='comment')),
+    path('deletecomment/', include('comment.deleteUrls', namespace='deletecomment')),
+    path('404/', views.page_not_found, name='404'),
     re_path('^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', static.serve,
+        {'document_root': settings.STATIC_ROOT}, name='static'),
 ]

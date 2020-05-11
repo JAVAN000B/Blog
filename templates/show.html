@@ -1,5 +1,6 @@
 ﻿{% extends "base.html" %}
 {% block content %}
+    <div class="progressIndicator fix-progress-bar" style="position:fixed;top:0;left:0;height:1ch;background-color:#5bc0de;"></div>
     <!-- /主体 -->
     <div id="main-container" class="container clearfix">
         <section class="post-left">
@@ -7,7 +8,7 @@
                 href="{% url 'index' %}list-{{ show.category.id }}.html">{{ show.category.name }}</a> »
                 <span class="current">正文</div>
             <div class="post-main clearfix">
-                <h1 class="post-title">{{ show.title }}</h1>
+                <h1 class="post-title" style="border-color: #9a3d4e73">{{ show.title }}</h1>
                 <div class="post-con clearfix">
                     <div class="article-meta">
                         <span class="item">分类：<a href="{% url 'index' %}list-{{ show.category.id }}.html" rel="category tag">{{ show.category.name }}</a></span>
@@ -42,30 +43,72 @@
                     </div>
                 </div>
 
+                            <div class="comment  hidden-xs">
+                <hr>
+                {% if user.is_authenticated %}
+                    <div>
+                        <form
+                            action="{% url 'comment:post_comment' sid %}"
+                            method="POST"
+                        >
+                        {% csrf_token %}
+                            <div class="form-group">
+                                <label for="body">
+                                    <strong>
+                                        我也要发言：
+                                    </strong>
+                                </label>
+                                <textarea
+                                    type="text"
+                                    class="form-control"
+                                    id="body"
+                                    name="body"
+                                    rows="2"></textarea>
+                            </div>
+                            <!-- 提交按钮 -->
+                            <button type="submit" class="btn btn-primary ">发送</button>
+                        </form>
+                    </div>
+                    <br>
+                {% else %}
+                    <br>
+                    <h5 class="row justify-content-center">
+                        请<a href="/accounts/github/login/">登录</a>后回复
+                    </h5>
+                    <br>
+                {% endif %}
+
+
+                <!-- 显示评论 -->
+                <h4>共有{{ comments.count }}条评论</h4>
+                <div>
+                    {% for comment in comments %}
+                        <hr>
+                        <p>
+                            <strong style="color: pink">
+                                {{ comment.CommentUser }}
+                            </strong> 于
+                            <span style="color: green">
+                                {{ comment.created|date:"Y-m-d H:i:s" }}
+                            </span> 时说：
+                            {% if user.is_authenticated %}
+                                {% if comment.CommentUser.id == user.id  %}
+                                    <a style="float: right;color: crimson" href="{% url 'deletecomment:delete_comment' comment.id sid %}" >删除</a>
+                                {% endif %}
+
+                            {% endif %}
+                        </p>
+                        <pre style="font-family: inherit; font-size: 1em;">
+                        {{ comment.body }}</pre>
+                    {% endfor %}
+                </div>
+
+
+            </div>
+
+
             </div>
             <!-- /文章 -->
-
-
-            <div class="recommend  hidden-xs">
-
-                <div class="head clearfix"><span class="sp">您可能感兴趣的:</span></div>
-                <ul>
-                    {% for h in hot %}
-                    <li>
-                     <div class="pic">
-                       <a href="{% url 'index' %}show-{{ h.id }}.html" title="{{ h.title }}">
-                       <img src="{% url 'index' %}media/{{ h.img }}"
-                         srcset="{% url 'index' %}media/{{ h.img }}"
-                         alt="{{ h.title }}" class="wp-post-image" width="145" height="100"/></a>
-                      </div>
-                        <a class="descript " href="{% url 'index' %}show-{{ h.id }}.html" rel="bookmark"
-                               title="{{ h.title }}">{{ h.title }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-
         </section>
         <!-- /post-left -->
         <!-- /post-right -->

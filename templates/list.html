@@ -1,4 +1,5 @@
 ﻿{% extends "base.html" %}
+{% load static %}
 {% block content %}
     <div id="main-container" class="container clearfix">
         <section class="post-left">
@@ -6,7 +7,7 @@
                 <span class="current">{{ cname }} </span></div>
             <div class="index-main clearfix">
                 <div class="main-title">
-                    <h4 class="post-left-title">分类：{{ cname}}</h4>
+                    <h4 class="post-left-title" style="border-color: #9a3d4e73">分类：{{ cname}}</h4>
                 </div>
                 <div class="row">
                     {% for list in list %}
@@ -14,9 +15,16 @@
                             <div class="col-md-4">
                                 <div class="thumbnail">
                                     <a href="{% url 'index' %}show-{{ list.id }}.html" title="{{ list.title }}">
-                                        <img src="media/{{ list.img }}"
+                                        {% if list.img == "" %}
+                                            <img src="{% static "picture/default.png" %}"
+                                             srcset="{% static "picture/default.png" %}"
+                                             alt="{{ list.title }}" class="wp-post-image" width="240" height="160"/>
+                                        {% else %}
+                                            <img src="media/{{ list.img }}"
                                              srcset="media/{{ list.img }}"
-                                             alt="{{ list.title }}" class="wp-post-image" width="240" height="160"/></a>
+                                             alt="{{ list.title }}" class="wp-post-image" width="240" height="160"/>
+                                        {% endif %}
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-md-8">

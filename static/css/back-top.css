@@ -1,0 +1,13 @@
+#back-top {
+     position: fixed;
+     bottom: 10px;
+     right: 8px;
+     z-index: 99;
+}
+#back-top span {
+     width: 70px;
+     height: 140px;
+     display: block;
+     background:url(../images/5-1304121QA4.png) no-repeat center center;
+}
+#back-top a{outline:none}
