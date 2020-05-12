@@ -37,12 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.staticfiles',
     'myBlog.apps.MyblogConfig',  # MyBlog APP
-    'DjangoUeditor',  # editor for article
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     'comment',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -89,10 +90,20 @@ WSGI_APPLICATION = 'Blog.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',   # 数据库引擎
+        'NAME': 'myblog',  # 数据库名，先前创建的
+        'USER': 'root',     # 用户名，可以自己创建用户
+        'PASSWORD': 'smh23813456',  # 密码
+        'HOST': '127.0.0.1',  # mysql服务所在的主机ip
+        'PORT': '3306',         # mysql服务端口
     }
+
 }
 
 # Password validation
@@ -113,6 +124,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',  # 完整工具条
+        'height': 300,  # 编辑高度
+    },
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -130,14 +148,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+STATIC_ROOT = 'static_new'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '/static/'),
+    os.path.join(BASE_DIR, 'static/'),
 ]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
+CKEDITOR_UPLOAD_PATH = 'upload/'
 # 设置站点
 SITE_ID = 1
 

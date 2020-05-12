@@ -29,12 +29,12 @@ urlpatterns = [
     path('tag/<tag>', views.tag, name='tags'),  # 标签列表页
     path('s/', views.search, name='search'),  # 搜索列表页
     path('about/', views.about, name='about'),  # 联系我们单页
-    path('ueditor/', include('DjangoUeditor.urls')),
     path('accounts/', include('allauth.urls')),
     path('comment/', include('comment.urls', namespace='comment')),
     path('deletecomment/', include('comment.deleteUrls', namespace='deletecomment')),
     path('404/', views.page_not_found, name='404'),
-    re_path('^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^static/(?P<path>.*)$', static.serve,
         {'document_root': settings.STATIC_ROOT}, name='static'),
+    url(r'^media/(?P<path>.*)', serve, {"document_root": settings.MEDIA_ROOT}),
 ]
